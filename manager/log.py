@@ -1,5 +1,5 @@
 import json
-from manager.manager import Manager
+from manager import Manager
 from flask_expects_json import expects_json
 from flask import Blueprint, request, jsonify
 
