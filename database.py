@@ -5,4 +5,4 @@ config = json.loads(open("config.json").read())
 
 client = MongoClient(config["host"],27017,username=config["username"],password=config["password"])
 
-db = client["manager-logs"]
+db = client[config["database"]]

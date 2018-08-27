@@ -1,5 +1,7 @@
 {
     "username": "root",
     "password": "1234",
-    "host": "localhost"
+    "host": "localhost",
+    "database": "manager-logs",
+    "collection": "teste"
 }
