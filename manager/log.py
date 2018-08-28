@@ -1,5 +1,5 @@
 import json
-from manager import Manager
+from manager.file import save_file
 from flask_expects_json import expects_json
 from flask import Blueprint, request, jsonify
 
@@ -10,7 +10,7 @@ model = {
     "properties": {
         "type":{"type":"string"},
         "action":{"type":"string"},
-        "date":{"type":"number","format":"integer"}
+        "date":{"type":"string","format":"date"}
     },
     "required":["type","action","date"]
 }
@@ -26,10 +26,19 @@ def insert_log():
         json.dump(logs,file)
         logs = None
         file.close()
-        return jsonify({'Message':'Operation Successful'}),200        
+        return jsonify({'Message':'Operation Successful'}), 200        
     except Exception as e:
-        Manager().save_file(e)
-        return jsonify({'Message':'Server Error'}),500
+        save_file(e)
+        return jsonify({'Message':'Server Error'}), 500
+
+@log.route("/logs",methods=["GET"])
+def list_log():
+    try:
+        logs = json.loads(open("./manager/logs.json").read())
+        return jsonify(logs), 200
+    except Exception as e:
+        save_file(e)
+        return jsonify({'Message':'Server Error'}), 500
 
 @log.route("/logs/error",methods=["GET"])
 def list_log_error():
@@ -38,10 +47,13 @@ def list_log_error():
         content = file_error.readlines()
         file_error.close()
         doc_json = []
-        for msg in content:
-            doc_json.append({'msg':msg[0:-1]})
+        for i,msg in enumerate(content):
+            if i == len(content) - 1:
+                doc_json.append({'msg':msg})
+            else:
+                doc_json.append({'msg':msg[0:-1]})    
         content = None    
-        return jsonify(doc_json),200
+        return jsonify(doc_json), 200
     except Exception as e:
-        Manager().save_file(e)
-        return jsonify({'Message':'Server Error'}),500    
+        save_file(e)
+        return jsonify({'Message':'Server Error'}), 500    

@@ -2,33 +2,13 @@ import json
 import time
 from database import db
 from threading import Thread
-from datetime import datetime
+from manager.file import save_file
 
 class Manager(Thread):
     def run (self):
         while True:
             self.insert_logs()
-            time.sleep(60)
-
-    def save_file(self,e):
-        file_error = open("./manager/error.txt","r")
-        content = file_error.readlines()
-        file_error.close()
-        if content:
-            if len(content) < 5:
-                info = "\n" + str(datetime.now()) + " - " + str(e)
-                content.append(info)
-            else:
-                info = str(datetime.now()) + " - " + str(e)
-                content = []
-                content.append(info)
-        else:
-            info = str(datetime.now()) + " - " + str(e)
-            content.append(info)
-        save_file_error = open("./manager/error.txt","w")
-        save_file_error.writelines(content)
-        content = None
-        save_file_error.close()            
+            time.sleep(60) 
                 
     def insert_logs(self):
         try:
@@ -41,5 +21,5 @@ class Manager(Thread):
                 logs = None
                 file.close()
         except Exception as e:
-            self.save_file(e)
+            save_file(e)
             
