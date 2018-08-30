@@ -10,7 +10,7 @@ model = {
     "properties": {
         "type":{"type":"string"},
         "action":{"type":"string"},
-        "date":{"type":"string","format":"date"}
+        "date":{"type":"string","format":"date-time"}
     },
     "required":["type","action","date"]
 }
@@ -28,7 +28,7 @@ def insert_log():
         file.close()
         return jsonify({'Message':'Operation Successful'}), 200        
     except Exception as e:
-        save_file(e)
+        save_file(e,"POST /logs")
         return jsonify({'Message':'Server Error'}), 500
 
 @log.route("/logs",methods=["GET"])
@@ -37,7 +37,7 @@ def list_log():
         logs = json.loads(open("./manager/logs.json").read())
         return jsonify(logs), 200
     except Exception as e:
-        save_file(e)
+        save_file(e,"GET /logs")
         return jsonify({'Message':'Server Error'}), 500
 
 @log.route("/logs/error",methods=["GET"])
@@ -51,9 +51,9 @@ def list_log_error():
             if i == len(content) - 1:
                 doc_json.append({'msg':msg})
             else:
-                doc_json.append({'msg':msg[0:-1]})    
+                doc_json.append({'msg':msg[0:-1]})            
         content = None    
         return jsonify(doc_json), 200
     except Exception as e:
-        save_file(e)
+        save_file(e,"GET /logs/error")
         return jsonify({'Message':'Server Error'}), 500    

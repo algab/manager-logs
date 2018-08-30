@@ -1,3 +1,3 @@
 # Manager Logs
 
-Ferramenta de Gerenciamento do Logs
+Ferramenta de Gerenciamento de Logs

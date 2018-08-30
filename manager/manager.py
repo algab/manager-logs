@@ -21,5 +21,5 @@ class Manager(Thread):
                 logs = None
                 file.close()
         except Exception as e:
-            save_file(e)
+            save_file(e,"INSERT logs")
             
