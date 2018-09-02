@@ -1,4 +1,5 @@
 import json
+from manager.batch import Batch
 from manager.file import save_file
 from flask_expects_json import expects_json
 from flask import Blueprint, request, jsonify
@@ -9,10 +10,9 @@ model = {
     "type":"object",
     "properties": {
         "type":{"type":"string"},
-        "action":{"type":"string"},
-        "date":{"type":"string","format":"date-time"}
+        "action":{"type":"string"}
     },
-    "required":["type","action","date"]
+    "required":["type","action"]
 }
 
 @log.route("/logs",methods=["POST"])
@@ -20,12 +20,7 @@ model = {
 def insert_log():
     try:
         data = request.get_json()
-        logs = json.loads(open("./manager/logs.json").read())
-        logs.append(data)
-        file = open("./manager/logs.json","w")
-        json.dump(logs,file)
-        logs = None
-        file.close()
+        Batch().set_inserts(data)
         return jsonify({'Message':'Operation Successful'}), 200        
     except Exception as e:
         save_file(e,"POST /logs")

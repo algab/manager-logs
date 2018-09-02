@@ -3,5 +3,6 @@
     "password": "",
     "host": "",
     "database": "",
-    "collection": ""
+    "collection": "",
+    "time": 0
 }

@@ -1,7 +1,9 @@
 from datetime import datetime
 
+path = "./manager/error.txt"
+
 def save_file(e,action):
-    file_error = open("./manager/error.txt","r")
+    file_error = open(path,"r")
     content = file_error.readlines()
     file_error.close()
     if content:
@@ -15,7 +17,7 @@ def save_file(e,action):
     else:
         info = str(datetime.now()) + " - " + action + " - " + str(e)
         content.append(info)
-    save_file_error = open("./manager/error.txt","w")
+    save_file_error = open(path,"w")
     save_file_error.writelines(content)
-    content = None
-    save_file_error.close()  
+    save_file_error.close()
+    content = None  
