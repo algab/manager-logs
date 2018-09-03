@@ -29,8 +29,11 @@ def insert_log():
 @log.route("/logs",methods=["GET"])
 def list_log():
     try:
+        data = {}
         logs = json.loads(open("./manager/logs.json").read())
-        return jsonify(logs), 200
+        data["total"] = len(logs)
+        data["logs"] = logs
+        return jsonify(data), 200
     except Exception as e:
         save_file(e,"GET /logs")
         return jsonify({'Message':'Server Error'}), 500
