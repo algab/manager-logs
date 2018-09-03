@@ -23,7 +23,7 @@ class Batch():
         self.__class__.inserts.append(InsertOne(log))
 
     def get_inserts(self):
-        return self.inserts    
+        return self.__class__.inserts    
 
     def reset(self):
         file = open(path,"w")

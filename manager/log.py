@@ -33,6 +33,7 @@ def list_log():
         logs = json.loads(open("./manager/logs.json").read())
         data["total"] = len(logs)
         data["logs"] = logs
+        logs = None
         return jsonify(data), 200
     except Exception as e:
         save_file(e,"GET /logs")
