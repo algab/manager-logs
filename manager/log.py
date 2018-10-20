@@ -10,7 +10,7 @@ config = json.loads(open("config.json").read())
 
 log = Blueprint('log',__name__)
 
-model = {
+schema = {
     "type":"object",
     "properties": {
         "type":{"type":"string"},
@@ -20,7 +20,7 @@ model = {
 }
 
 @log.route("/logs",methods=["POST"])
-@expects_json(model)
+@expects_json(schema)
 def insert_log():
     try:
         data = request.get_json()
@@ -34,7 +34,7 @@ def insert_log():
 def list_log():
     try:
         data = {}
-        logs = json.loads(open("./manager/logs.json").read())
+        logs = json.loads(open("./manager/files/logs.json").read())
         data["total"] = len(logs)
         data["logs"] = logs
         logs = None
@@ -76,7 +76,7 @@ def stats():
 @log.route("/logs/error",methods=["GET"])
 def list_log_error():
     try:
-        file_error = open("./manager/error.txt","r")
+        file_error = open("./manager/files/error.txt","r")
         content = file_error.readlines()
         file_error.close()
         doc_json = []

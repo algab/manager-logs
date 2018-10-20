@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 from pymongo import InsertOne
 
-path = "./manager/logs.json"
+path = "./manager/files/logs.json"
 
 class Batch():  
 

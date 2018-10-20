@@ -1,6 +1,6 @@
 from datetime import datetime
 
-path = "./manager/error.txt"
+path = "./manager/files/error.txt"
 
 def save_file(e,action):
     file_error = open(path,"r")
