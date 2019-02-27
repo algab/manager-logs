@@ -1,5 +1,6 @@
 flask
-flask-cors
-flask-expects-json
 pymongo
 gunicorn
+flask-cors
+python-dotenv
+jsonschema

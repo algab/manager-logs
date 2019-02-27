@@ -1,9 +1,16 @@
+import json
 from datetime import datetime
 
-path = "./manager/files/error.txt"
+path_logs = "./logs.json"
+path_error = "./error.txt"
 
-def save_file(e,action):
-    file_error = open(path,"r")
+def save_logs(logs):
+    file_logs = open(path_logs,"w")
+    json.dump(logs,file_logs)
+    file_logs.close()
+
+def save_error(e,action):
+    file_error = open(path_error,"r")
     content = file_error.readlines()
     file_error.close()
     if content:
@@ -17,7 +24,7 @@ def save_file(e,action):
     else:
         info = str(datetime.now()) + " - " + action + " - " + str(e)
         content.append(info)
-    save_file_error = open(path,"w")
+    save_file_error = open(path_error,"w")
     save_file_error.writelines(content)
     save_file_error.close()
     content = None  

@@ -1,7 +1,14 @@
+import os
 from flask import Flask
 from flask_cors import CORS
-from manager.log import log
-from manager.manager import Manager
+from dotenv import load_dotenv
+from collection import verify_collection
+from app.log import log
+from app.manager import Manager
+
+load_dotenv('./config.env')
+
+verify_collection()
 
 app = Flask("manager-logs")
 
@@ -13,4 +20,4 @@ app.register_blueprint(log)
 Manager().start()
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=int(os.getenv("PORT")),use_reloader=True,load_dotenv=True)
