@@ -3,10 +3,11 @@ from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
 from collection import verify_collection
+
+load_dotenv()
+
 from app.log import log
 from app.manager import Manager
-
-load_dotenv('./config.env')
 
 verify_collection()
 
