@@ -1,6 +1,8 @@
 flask
 pymongo
-gunicorn
+redis
 flask-cors
 python-dotenv
 jsonschema
+dnspython
+gunicorn
